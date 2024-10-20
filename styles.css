@@ -1,0 +1,454 @@
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%); 
+}
+.sidebar {
+    width: 220px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f78d1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #1f78d1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: #135a9b;
+}
+
+
+.logo-container {
+    margin-bottom: 5px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+canvas {
+    max-width: 100%;
+    height: 200px; 
+    margin-top: 20px;
+    z-index: 3; 
+    position: relative; 
+}
+
+#forecast-table {
+    margin-top: 20px;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#city-input {
+    width: 150px;
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#get-weather {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#weather-widget {
+    padding: 20px;
+    text-align: center;
+}
+
+#weather-widget h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#weather-widget p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.weather-table {
+    width: 48%; 
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.weather-table th,
+.weather-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.weather-table th {
+    background-color: #f2f2f2;
+}
+/* CHAT BOT */
+#chatbot-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px; 
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    z-index: 4;
+    transition: all 0.3s; 
+}
+
+#chatbot-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    z-index: 4;
+}
+
+#chatbot-input {
+    padding: 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+}
+
+#send-chatbot {
+    padding: 10px;
+    width: 100%;
+    background-color: #1f78d1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#send-chatbot:hover {
+    background-color: #135a9b;
+}
+#chatbot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#close-chatbot {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#chatbot-widget.minimized {
+    height: 50px; 
+    width: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+
+#chatbot-widget.minimized #chatbot-input,
+#chatbot-widget.minimized #send-chatbot,
+#chatbot-widget.minimized #chatbot-messages {
+    display: none; 
+}
+#chatbot-widget.minimized:after {
+    content: '💬'; 
+    font-size: 30px; 
+}
+
+/* FILTER SECTION */
+
+.filter-section {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h3 {
+    margin-bottom: 10px;
+}
+
+.filter-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.filter-section ul li {
+    margin-bottom: 5px;
+}
+
+.weather-container.error-bg {
+    background-color: #f8d7da;
+    color: #721c24; 
+}
+#loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid #3498db; 
+    border-radius: 50%;
+    border-top: 2px solid transparent;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    z-index: 1000; 
+}
+
+.hidden {
+    display: none; 
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#pagination-controls {
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.pagination-btn {
+    background-color: #007BFF; 
+    color: white; 
+    border: none; 
+    border-radius: 5px;
+    padding: 10px 15px; 
+    margin: 0 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    transition: background-color 0.3s; 
+}
+
+.pagination-btn:hover {
+    background-color: #0056b3; 
+}
+
+.pagination-btn:focus {
+    outline: none; 
+}
+.charts-container {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 20px; 
+}
+
+.chart {
+    flex: 1; 
+    min-width: 250px; 
+    max-width: 33%; 
+    height: 250px; 
+    margin: 0 10px; 
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-radius: 5px;
+    padding: 10px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+/* 
+BACKGROUND */
+.clear-bg {
+    background-image: url('https://img.freepik.com/free-photo/white-cloud-blue-sky_1203-9447.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.cloudy-bg {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsiqGM4blfzlTXA-dDqRI-DEpNCBk_zorGTg&s'); /* Use a cloudy image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.rainy-bg {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ebrSKMALLG4HIb_k5uoGWA6TwHLxIhxRkw&s'); /* Use a rainy image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.drizzle-bg {
+    background-image: url('https://img.freepik.com/premium-photo/moody-sky-with-light-drizzle-grey-clouds_1160544-60208.jpg'); /* Use a drizzle image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.storm-bg {
+    background-image: url('https://images.pexels.com/photos/158163/clouds-cloudporn-weather-lookup-158163.jpeg?cs=srgb&dl=pexels-pixabay-158163.jpg&fm=jpg'); /* Use a storm image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.snowy-bg {
+    background-image: url('https://media.istockphoto.com/id/614332492/photo/snow-storm.jpg?s=612x612&w=0&k=20&c=UT779vnlT6q5tRGHR_JbweEC8L0tHbXMeogrAqJeQSo='); /* Use a snowy image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+.mist-bg {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5OIuguPj6Nz9S9fXUmV7eDSUoOMdDz-Sjw&s'); /* Use a misty image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+.default-bg {
+    background-color: #f0f0f0; 
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; 
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #city-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .charts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .chart {
+        max-width: 90%; 
+        height: 200px; 
+        margin: 10px 0; 
+    }
+   
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        display: none; 
+    }
+    .chart {
+        height: 150px; 
+    }
+    .main-content {
+        padding: 5px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #loading-spinner {
+        width: 40px;
+        height: 40px;
+    }
+
+    #chatbot-widget {
+        width: 80%;
+        height: 300px;
+    }
+
+    #chatbot-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #chatbot-input {
+        width: calc(100% - 20px);
+    }
+
+    .filter-section {
+        padding: 5px;
+    }
+
+    .weather-container {
+        height: auto;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .charts-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .chart {
+        max-width: 45%;
+        margin: 10px;
+    }
+}
+
+

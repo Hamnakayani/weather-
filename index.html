@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+
+<body>
+    <div class="background-image"></div>
+
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="https://cdn.jim-nielsen.com/ios/512/weather-2021-12-07.png?rf=1024" alt="Weather App Logo"
+                class="logo">
+        </div>
+
+        <div class="logo">Weather App</div>
+        <button id="dashboard-btn">Dashboard</button>
+        <button id="tables-btn">Tables</button>
+    </div>
+
+
+    <div class="main-content">
+
+        <div class="header">
+            <input type="text" id="city-input" placeholder="Enter city name">
+            <button id="get-weather">Get Weather</button>
+        </div>
+
+        <div id="loading-spinner" class="hidden">Loading...</div>
+
+        <div class="weather-container hidden">
+            <div id="weather-widget"></div>
+        </div>
+
+        <div class="forecast-section hidden">
+            <div class="charts-container">
+                <canvas id="temp-bar-chart" class="chart" width="400" height="250"></canvas>
+                <canvas id="weather-doughnut-chart" class="chart" width="400" height="250"></canvas>
+                <canvas id="temp-line-chart" class="chart" width="400" height="250"></canvas>
+            </div>
+            <div id="pagination-controls"></div> 
+            <div id="forecast-table"></div>
+        </div>
+
+       
+        <div id="filter-section" class="filter-section">
+          
+        </div>
+
+        
+        <div id="chatbot-widget" class="hidden">
+            <div id="chatbot-header">
+                <span id="chatbot-title">Chatbot</span>
+                <button id="close-chatbot">X</button>
+            </div>
+            <div id="chatbot-messages"></div>
+            <input type="text" id="chatbot-input" placeholder="Ask me anything...">
+            <button id="send-chatbot">Send</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
