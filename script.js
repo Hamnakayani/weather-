@@ -46,6 +46,9 @@ window.onload = () => {
 };
 
 async function fetchWeatherDataByLocation(lat, lon) {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.remove('hidden'); // Show spinner
+
     try {
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
         const weatherData = await weatherResponse.json();
@@ -58,6 +61,9 @@ async function fetchWeatherDataByLocation(lat, lon) {
     catch (error) 
     {
         alert(error.message); 
+    }
+    finally {
+        spinner.classList.add('hidden'); 
     }
 }
 
@@ -78,6 +84,8 @@ document.getElementById('get-weather').addEventListener('click', () => {
 });
 
 async function fetchWeatherDataAndDisplay(city) {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.remove('hidden');
     try {
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         const weatherData = await weatherResponse.json();
@@ -98,6 +106,9 @@ async function fetchWeatherDataAndDisplay(city) {
     } catch (error) {
         
         displayErrorMessage(error.message);
+    }
+    finally {
+        spinner.classList.add('hidden'); 
     }
 }
 
@@ -121,11 +132,12 @@ function displayErrorMessage(message) {
 
 
 async function fetchForecastData(city) {
+
     const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
     const forecastData = await forecastResponse.json();
     displayForecast(forecastData); 
 }
-
+let isCelsius = true;
 function displayWeatherData(data) {
     const weatherContainer = document.querySelector('.weather-container');
     const forecastSection = document.querySelector('.forecast-section');
@@ -156,14 +168,32 @@ function displayWeatherData(data) {
     const condition = data.weather[0].main;
     weatherContainer.className = `weather-container ${backgroundClasses[condition] || "default-bg"}`;
 
+    let temperatureCelsius = data.main.temp;
     const weatherWidget = document.getElementById('weather-widget');
     weatherWidget.innerHTML = `
-        <h2>${data.name}</h2>
-        <p>Temperature: ${data.main.temp} °C</p>
-        <p>Humidity: ${data.main.humidity} %</p>
-        <p>Wind Speed: ${data.wind.speed} m/s</p>
-        <p>${data.weather[0].description}</p>
-    `;
+    <h2>${data.name}</h2>
+    <p id="temperature-text">Temperature: ${temperatureCelsius} °C</p>
+    <p>Humidity: ${data.main.humidity} %</p>
+    <p>Wind Speed: ${data.wind.speed} m/s</p>
+    <p>${data.weather[0].description}</p>
+    <button id="toggle-temperature">Switch to Fahrenheit</button>
+`;
+
+const toggleButton = document.getElementById('toggle-temperature');
+toggleButton.addEventListener('click', () => {
+    isCelsius = !isCelsius; 
+    let temperatureText = document.getElementById('temperature-text');
+    
+    if (isCelsius) {
+        temperatureText.innerHTML = `Temperature: ${temperatureCelsius} °C`;
+        toggleButton.innerHTML = 'Switch to Fahrenheit';
+    } else {
+        let temperatureFahrenheit = (temperatureCelsius * 9/5) + 32; 
+        temperatureText.innerHTML = `Temperature: ${temperatureFahrenheit.toFixed(2)} °F`;
+        toggleButton.innerHTML = 'Switch to Celsius';
+    }
+});
+
 }
 
 let currentPage = 1;
@@ -425,6 +455,12 @@ sendButton.addEventListener('click', async () => {
     if (userMessage === '') return; 
     displayChatMessage('User', userMessage);
     chatbotInput.value = ''; 
-    const geminiResponse = await getGeminiResponse(userMessage);
-    displayChatMessage('Gemini', geminiResponse);
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.remove('hidden');
+    try {
+        const geminiResponse = await getGeminiResponse(userMessage);
+        displayChatMessage('Gemini', geminiResponse);
+    } finally {
+        spinner.classList.add('hidden'); 
+    }
 });
