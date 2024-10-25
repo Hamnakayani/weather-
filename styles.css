@@ -76,6 +76,9 @@ canvas {
     display: flex;
     align-items: center;
     margin: 20px 0;
+    justify-content: flex-start;
+    gap: 10px; 
+  
 }
 
 #city-input {
@@ -94,7 +97,14 @@ canvas {
     color: white;
     cursor: pointer;
 }
-
+#profile-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    /* margin-left: 10px; */
+    cursor: pointer; 
+    margin-left: auto;
+}
 .weather-container {
     display: flex;
     justify-content: center;

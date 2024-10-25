@@ -76,9 +76,12 @@ async function fetchForecastDataByLocation(lat, lon)
 
 document.getElementById('get-weather').addEventListener('click', () => {
     const city = document.getElementById('city-input').value; 
-    if (city) {
+    if (city)
+    {
         fetchWeatherDataAndDisplay(city); 
-    } else {
+    } 
+    else
+    {
         alert("Please enter a city name!"); 
     }
 });
