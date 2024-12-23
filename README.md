@@ -27,7 +27,7 @@ To run this project locally on your machine, follow these steps:
 1. **Clone the Repository**:
    Open your terminal and run the following command to clone the repository:
    ```bash
-   git clone https://github.com/yourusername/weather-dashboard.git
+   git clone https://github.com/Hamnakayani/weather-.git
    Navigate to the Project Directory:
 Change into the project directory:
 bash
